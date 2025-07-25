@@ -6,24 +6,16 @@ CFLAGS = -Wall
 all: cook waiter customer
 
 # Rule to compile cook.c
-cook: cook.c
-	$(CC) $(CFLAGS) -o cook cook.c
+cook: cook.c sharedMemory.c sharedMemory.h
+	$(CC) $(CFLAGS) -o cook cook.c sharedMemory.c
 
 # Rule to compile waiter.c
-waiter: waiter.c
-	$(CC) $(CFLAGS) -o waiter waiter.c
+waiter: waiter.c sharedMemory.c sharedMemory.h
+	$(CC) $(CFLAGS) -o waiter waiter.c sharedMemory.c
 
 # Rule to compile customer.c
-customer: customer.c
-	$(CC) $(CFLAGS) -o customer customer.c
-
-# Rule to generate customers.txt using gencustomers.c
-db: gencustomers
-	./gencustomers > customers.txt
-
-# Rule to compile gencustomers.c
-gencustomers: gencustomers.c
-	$(CC) $(CFLAGS) -o gencustomers gencustomers.c
+customer: customer.c sharedMemory.c sharedMemory.h
+	$(CC) $(CFLAGS) -o customer customer.c sharedMemory.c
 
 # Rule to clean up compiled binaries
 clean:
